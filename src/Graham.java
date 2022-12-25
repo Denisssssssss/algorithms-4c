@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 public class Graham extends BaseSolution {
     /**
+     * тесты
+     *
      * 7
      * 0 0
      * 0 3

@@ -1,6 +1,6 @@
 import static java.lang.Math.abs;
 
-public class ConvexPolygon extends BaseSolution {
+public class EdgeInPolygon extends BaseSolution {
 
 //    4
 //    0 0 - true, 3 3 - false
@@ -17,24 +17,13 @@ public class ConvexPolygon extends BaseSolution {
             x[i] = in.nextInt();
             y[i] = in.nextInt();
         }
-        System.out.println(isIn(a, b, x, y, gaussianSquare(x, y)));
-    }
-
-    public static double gaussianSquare(int[] x, int[] y) {
-        int n = x.length;
-        double sum = x[n - 1] * y[0];
-        double sub = (-1) * x[0] * y[n - 1];
-        for (int i = 0; i < n - 1; i++) {
-            sum += x[i] * y[i + 1];
-            sub += x[i + 1] * y[i];
-        }
-        return 0.5 * abs(sum - sub);
+        System.out.println(isIn(a, b, x, y, PolygonSquare.gaussianSquare(x, y)));
     }
 
     public static boolean isIn(int a, int b, int[] x, int[] y, double actualSquare) {
         double sq = 0;
         for (int i = 0; i < x.length - 1; i ++) {
-            sq += gaussianSquare(new int[]{a, x[i], x[i + 1]}, new int[]{b, y[i], y[i + 1]});
+            sq += PolygonSquare.gaussianSquare(new int[]{a, x[i], x[i + 1]}, new int[]{b, y[i], y[i + 1]});
         }
         return sq == actualSquare;
     }
