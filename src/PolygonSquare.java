@@ -1,5 +1,6 @@
 import static java.lang.Math.abs;
 
+// 6
 public class PolygonSquare extends BaseSolution {
 
     /*

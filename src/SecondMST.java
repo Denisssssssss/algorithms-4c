@@ -1,5 +1,6 @@
 import java.util.*;
 
+// 15
 public class SecondMST extends BaseSolution {
 
     public static void main(String[] args) {
@@ -36,7 +37,7 @@ public class SecondMST extends BaseSolution {
                 }
                 System.out.println();
             }
-            System.out.printf("Secod MST length: %s", sum(ans));
+            System.out.printf("Second MST length: %s", sum(ans));
         });
     }
 

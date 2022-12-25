@@ -1,3 +1,4 @@
+// 7
 public class RabinKarp extends BaseSolution {
 
     public static void main(String[] args) {

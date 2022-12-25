@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
+// 8
 public class BoyerMoore extends BaseSolution {
 
     public static void main(String[] args) {

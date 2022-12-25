@@ -1,5 +1,6 @@
 import static java.lang.Math.abs;
 
+// 4
 public class EdgeInPolygon extends BaseSolution {
 
 //    4

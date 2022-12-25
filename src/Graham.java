@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+// 10
 public class Graham extends BaseSolution {
     /**
      * тесты

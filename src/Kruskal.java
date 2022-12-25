@@ -1,5 +1,6 @@
 import java.util.*;
 
+// 12
 public class Kruskal extends BaseSolution {
 
     /*
