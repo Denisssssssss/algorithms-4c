@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Function;
 
 import static java.lang.Math.max;
@@ -5,10 +7,20 @@ import static java.lang.Math.max;
 // 15
 public class Strassen extends BaseSolution {
 
+    /*
+     * 900
+     * 900
+     * 900
+     * 128
+     */
     public static void main(String[] args) {
 
-        int[][] a = new int[900][900];
-        int[][] b = new int[900][900];
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int k = in.nextInt();
+        int threshold = in.nextInt();
+        int[][] a = new int[n][m];
+        int[][] b = new int[m][k];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
                 a[i][j] = j % 3;
@@ -22,7 +34,7 @@ public class Strassen extends BaseSolution {
         int max = maxSize(a, b);
         int size = closestBinary(max);
         long start = System.currentTimeMillis();
-        int[][] strassen = multiply(new Matrix(quadify(a, size)), new Matrix(quadify(b, size)), 128);
+        int[][] strassen = multiply(new Matrix(quadify(a, size)), new Matrix(quadify(b, size)), threshold);
         String strassenStat = String.format("Strassen: %s\n", System.currentTimeMillis() - start);
 //        print(strassen, a.length, b[0].length);
         System.out.println();
@@ -32,6 +44,7 @@ public class Strassen extends BaseSolution {
 //        print(ans, a.length, b[0].length);
         System.out.println(strassenStat);
         System.out.println(defaultStat);
+        System.out.printf("Arrays are equal: %s", Arrays.deepEquals(strassen, quadify(ans, strassen.length)));
     }
 
     private static void print(int[][] a, int rows, int columns) {
