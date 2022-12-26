@@ -1,3 +1,5 @@
+import java.util.function.Function;
+
 import static java.lang.Math.max;
 
 // 15
@@ -5,31 +7,43 @@ public class Strassen extends BaseSolution {
 
     public static void main(String[] args) {
 
-//        int n = in.nextInt();
-        int[][] a = new int[50][34];
-        int[][] b = new int[34][31];
-        for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 34; j++) {
-                a[i][j] = i + 1;
+        int[][] a = new int[900][900];
+        int[][] b = new int[900][900];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
+                a[i][j] = j % 3;
             }
         }
-        for (int i = 0; i < 34; i++) {
-            for (int j = 0; j < 31; j++) {
-                b[i][j] = i + 1;
+        for (int i = 0; i < b.length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
+                b[i][j] = j % 3;
             }
         }
         int max = maxSize(a, b);
         int size = closestBinary(max);
-        int[][] ans = multiply(new Matrix(quadify(a, size)), new Matrix(quadify(b, size)), 16);
+        long start = System.currentTimeMillis();
+        int[][] strassen = multiply(new Matrix(quadify(a, size)), new Matrix(quadify(b, size)), 128);
+        String strassenStat = String.format("Strassen: %s\n", System.currentTimeMillis() - start);
+//        print(strassen, a.length, b[0].length);
+        System.out.println();
+        start = System.currentTimeMillis();
+        int[][] ans = multiply(a, b);
+        String defaultStat = String.format("Default: %s\n", System.currentTimeMillis() - start);
+//        print(ans, a.length, b[0].length);
+        System.out.println(strassenStat);
+        System.out.println(defaultStat);
+    }
+
+    private static void print(int[][] a, int rows, int columns) {
         int k = 0;
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < b[0].length; j++) {
-                k = String.valueOf(max(k, ans[i][j])).length();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                k = String.valueOf(max(k, a[i][j])).length();
             }
         }
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < b[0].length; j++) {
-                String s = String.valueOf(ans[i][j]);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                String s = String.valueOf(a[i][j]);
                 int len = s.length();
                 for (int l = 0; l < k - len; l++) {
                     s = s.concat(" ");
@@ -120,7 +134,7 @@ public class Strassen extends BaseSolution {
     }
 
     public static int[][] multiply(Matrix a, Matrix b, int threshold) {
-        if (a.len() < threshold) {
+        if (a.len() <= threshold) {
             return multiply(a.values, b.values);
         }
         Matrix[][] m1 = split(a.values);
@@ -140,9 +154,9 @@ public class Strassen extends BaseSolution {
     }
 
     private static int[][] multiply(int[][] a, int[][] b) {
-        int[][] m = new int[a.length][a.length];
+        int[][] m = new int[a.length][b[0].length];
         for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a.length; j++) {
+            for (int j = 0; j < b[0].length; j++) {
                 m[i][j] = multiply(a[i], b, j);
             }
         }
